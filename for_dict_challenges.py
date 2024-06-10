@@ -12,7 +12,17 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+
+names = {}
+
+for student in students:
+    if student['first_name'] not in names.keys():
+        names[student['first_name']] = 1
+    else:
+        names[student['first_name']] += 1
+
+for key, value in names.items():
+    print(f'{key}: {value}')
 
 
 # Задание 2
@@ -26,7 +36,21 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
+
+names = {}
+
+for student in students:
+    if student['first_name'] not in names.keys():
+        names[student['first_name']] = 1
+    else:
+        names[student['first_name']] += 1
+
+common = 0
+for key, value in names.items():
+    if value > common:
+        common = value
+        common_name = key
+print(f'Самое частое имя среди учеников: {common_name}')
 
 
 # Задание 3
@@ -44,14 +68,39 @@ school_students = [
         {'first_name': 'Маша'},
         {'first_name': 'Маша'},
         {'first_name': 'Оля'},
-    ],[  # это – третий класс
+    ],
+    [  # это – третий класс
         {'first_name': 'Женя'},
         {'first_name': 'Петя'},
         {'first_name': 'Женя'},
         {'first_name': 'Саша'},
     ],
 ]
-# ???
+
+names = {}
+
+
+def count_names():
+    for student in classes:
+        if student['first_name'] not in names.keys():
+            names[student['first_name']] = 1
+        else:
+            names[student['first_name']] += 1
+
+    common = 0
+    for key, value in names.items():
+        if value > common:
+            common = value
+            common_name = key
+    return common_name
+
+
+n = 0
+for classes in school_students:
+    n += 1
+    common_name = count_names()
+    print(f'Самое частое имя в классе {n}: {common_name}')
+    names.clear()
 
 
 # Задание 4
@@ -72,7 +121,22 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+
+
+def check_gender(students):
+    female = 0
+    male = 0
+    for student in students:
+        if is_male[student['first_name']] is False:
+            female += 1
+        if is_male[student['first_name']] is True:
+            male += 1
+    return [female, male]
+
+
+for classes in school:
+    gender = check_gender(classes["students"])
+    print(f'Класс {classes["class"]}: девочки {gender[0]}, мальчики {gender[1]}')
 
 
 # Задание 5
@@ -91,5 +155,22 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
 
+
+def check_gender(students):
+    female = 0
+    male = 0
+    for student in students:
+        if is_male[student['first_name']] is False:
+            female += 1
+        elif is_male[student['first_name']] is True:
+            male += 1
+    return [female, male]
+
+
+for classes in school:
+    gender = check_gender(classes["students"])
+    if gender[0] < gender[1]:
+        print(f'Больше всего мальчиков в классе {classes["class"]}')
+    elif gender[0] > gender[1]:
+        print(f'Больше всего девочек в классе {classes["class"]}')
